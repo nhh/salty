@@ -1,10 +1,17 @@
-require "walter/*"
+require "./walter/*"
 
 module Walter
   VERSION = "0.1.0"
-  HANDLERS = [] of Walter::Server
+  HANDLERS = [] of Server
 
-  configs = Walter::Configuration
+  configs = Env.load_configurations
 
+  configs.each do |config|
+    server = Server.new(config)
+    server.run
+    HANDLERS << server
+  end
 
+  Fiber.yield
+  sleep
 end
