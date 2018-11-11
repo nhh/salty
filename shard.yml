@@ -1,0 +1,13 @@
+name: walter
+version: 0.1.0
+
+authors:
+  - nhh <Niklas.Hanft@outlook.com>
+
+targets:
+  walter:
+    main: src/walter.cr
+
+crystal: 0.27.0
+
+license: MIT
