@@ -18,14 +18,17 @@ module Walter
       return if @is_running
 
       spawn do
+
         server = HTTP::Server.new do |context|
-          context.response.content_type = "text/plain"
-          context.response.print "Hello world! The time is #{Time.now}"
+          response = HTTP::Client.get @configuration.vhosts[0].target
+          context.response.content_type = "text/html"
+          context.response.print response.body
         end
         
         address = server.bind_tcp @configuration.port.to_i
         puts "Listening on http://#{address}"
         server.listen
+
       end
 
       @is_running = true

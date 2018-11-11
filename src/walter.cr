@@ -3,8 +3,10 @@ require "./walter/*"
 module Walter
   VERSION = "0.1.0"
   HANDLERS = [] of Server
+  
+  puts File.read("./src/banner.txt")
 
-  configs = Env.load_configurations
+  configs = Configuration.load_configurations
 
   configs.each do |config|
     server = Server.new(config)
@@ -14,4 +16,5 @@ module Walter
 
   Fiber.yield
   sleep
+
 end
