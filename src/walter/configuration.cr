@@ -2,6 +2,11 @@ require "yaml"
 
 module Walter
   class Configuration
+    YAML.mapping(
+      host: String,
+      port: UInt16,
+      vhosts: Array(VirtualHost)
+    )
 
     getter host : String
     getter port : UInt16
@@ -15,10 +20,7 @@ module Walter
 
     def self.load_configurations : Array(Configuration)
       Dir.glob("./config/*.yml").map do |file_path|
-        conf = YAML.parse(File.read(file_path))
-        #pp conf["virtual-hosts"].as_h
-        vhosts = [VirtualHost.new("https://tools.ietf.org/html/rfc8089", "/")]
-        Configuration.new(conf["host"].as_s, conf["port"].as_i.to_u16, vhosts)
+        Configuration.from_yaml(File.read(file_path))
       end
     end
     

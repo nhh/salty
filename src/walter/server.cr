@@ -27,6 +27,7 @@ module Walter
         
         address = server.bind_tcp @configuration.port.to_i
         puts "Listening on http://#{address}"
+        pp @configuration.vhosts
         server.listen
 
       end
