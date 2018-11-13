@@ -23,6 +23,7 @@ module Walter
           client = HTTP::Client.new @configuration.vhosts[0].target, @configuration.vhosts[0].port
 
           client.exec(context.request.method, context.request.resource, context.request.headers, context.request.body) do |response|
+            context.response.status_code = response.status_code
             context.response.content_type = "text/html"
             context.response.print(response.body_io.gets)
             context.response.close
