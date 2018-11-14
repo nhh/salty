@@ -1,9 +1,8 @@
 class ProxyHandler
 
     def initialize
-        @configuration = 
+        @configuration.vhosts[0].target
     end
-
 
     def call(context)
         client = HTTP::Client.new @configuration.vhosts[0].target, @configuration.vhosts[0].port

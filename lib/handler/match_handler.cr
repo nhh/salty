@@ -1,6 +1,5 @@
 require "configuration"
-
-require "uri_scheme"
+require "handler/file_handler"
 
 class MatchHandler
 
@@ -18,8 +17,7 @@ class MatchHandler
     private def match_path(path : String)
         vhost = @configuration.vhosts.find { |vhost| vhost.path == path }
         return puts "[ERROR] no virtual hosts configured" unless vhost
-        return puts "[ERROR] no path mapping could be found for #{vhost.path}" if vhost.scheme == UriScheme::NONE
-        self.next= HTTP::StaticFileHandler.new "." if vhost.scheme == UriScheme::FILE
+        self.next= FileHandler.new vhost if vhost.target.scheme == "file"
     end
-    
+
 end
