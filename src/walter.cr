@@ -1,4 +1,5 @@
-require "./walter/*"
+require "configuration"
+require "server"
 
 module Walter
   VERSION = "0.1.0"
